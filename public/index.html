@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HARVEST TABLE | ハーベストテーブル - 土から届く、一皿の物語。</title>
+  <meta name="description" content="三軒茶屋の地産地消カフェ HARVEST TABLE。地元農家から届く旬の食材で、季節を味わう一皿をお届けします。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            coffee: {
+              50: '#faf6f2',
+              100: '#f0e8df',
+              200: '#e0cebf',
+              300: '#c9a98e',
+              400: '#b08566',
+              500: '#8b6344',
+              600: '#5c4033',
+              700: '#4a332a',
+              800: '#3b3028',
+              900: '#2a211c',
+            },
+            moss: {
+              50: '#f4f7f0',
+              100: '#e4eddb',
+              200: '#c8dab6',
+              300: '#a3c185',
+              400: '#6b8e4e',
+              500: '#4a7335',
+              600: '#3d5f2c',
+              700: '#2f4a22',
+              800: '#263b1c',
+              900: '#1d2e16',
+            },
+            cream: '#fefcf8',
+            'warm-white': '#faf7f2',
+          },
+          fontFamily: {
+            heading: ['Lora', 'Georgia', 'serif'],
+            body: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    :root {
+      --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-decel: cubic-bezier(0, 0, 0.2, 1);
+      --ease-accel: cubic-bezier(0.4, 0, 1, 1);
+      --ease-spring: cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      background-color: #fefcf8;
+      color: #3b3028;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Lora', Georgia, serif;
+    }
+
+    /* Grain texture overlay */
+    .grain-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .grain-overlay svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition-property: opacity, transform;
+      transition-timing-function: var(--ease-decel);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-48px);
+      transition-property: opacity, transform;
+      transition-timing-function: var(--ease-decel);
+    }
+
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(48px);
+      transition-property: opacity, transform;
+      transition-timing-function: var(--ease-decel);
+    }
+
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.92);
+      transition-property: opacity, transform;
+      transition-timing-function: var(--ease-spring);
+    }
+
+    .reveal-scale.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Hero parallax zoom */
+    .hero-bg {
+      transition: transform 0.1s linear;
+      will-change: transform;
+    }
+
+    /* Menu item hover */
+    .menu-card:hover .menu-img {
+      transform: scale(1.04);
+    }
+
+    .menu-card .menu-img {
+      transition: transform 500ms var(--ease-spring);
+    }
+
+    /* Gallery hover */
+    .gallery-item:hover img {
+      transform: scale(1.06);
+    }
+
+    .gallery-item img {
+      transition: transform 600ms var(--ease-spring);
+    }
+
+    /* Button hover */
+    .btn-primary {
+      transition: background-color 150ms var(--ease-standard), transform 150ms var(--ease-spring), box-shadow 150ms var(--ease-standard);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(92, 64, 51, 0.25);
+    }
+
+    .btn-secondary {
+      transition: background-color 150ms var(--ease-standard), transform 150ms var(--ease-spring), border-color 150ms var(--ease-standard);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-1px);
+    }
+
+    /* Nav link underline */
+    .nav-link {
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #5c4033;
+      transition: width 200ms var(--ease-spring);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #fefcf8;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #c9a98e;
+      border-radius: 999px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #8b6344;
+    }
+
+    /* Story horizontal scroll */
+    .story-scroll {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .story-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 300ms var(--ease-decel);
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    /* Form focus */
+    .form-input:focus {
+      outline: none;
+      border-color: #5c4033;
+      box-shadow: 0 0 0 3px rgba(92, 64, 51, 0.12);
+    }
+
+    .form-input {
+      transition: border-color 150ms var(--ease-standard), box-shadow 150ms var(--ease-standard);
+    }
+
+    /* Parallax hero */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .reveal-left, .reveal-right, .reveal-scale {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      .hero-bg {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SVG Grain Filter Definition (hidden) -->
+  <svg style="position:absolute;width:0;height:0;">
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </svg>
+
+  <!-- ============================== -->
+  <!-- NAVIGATION -->
+  <!-- ============================== -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-cream/90 backdrop-blur-md border-b border-coffee-200/40" id="navbar">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+      <div class="flex items-center justify-between h-16 lg:h-20">
+        <!-- Logo -->
+        <a href="#hero" class="flex items-center gap-3">
+          <div class="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-coffee-600 flex items-center justify-center">
+            <span class="text-white font-heading text-sm lg:text-base font-bold">H</span>
+          </div>
+          <div>
+            <span class="font-heading text-coffee-800 text-base lg:text-lg font-semibold tracking-wide">HARVEST TABLE</span>
+          </div>
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden lg:flex items-center gap-10">
+          <a href="#story" class="nav-link text-coffee-800 font-body text-sm font-medium">わたしたちのこと</a>
+          <a href="#menu" class="nav-link text-coffee-800 font-body text-sm font-medium">メニュー</a>
+          <a href="#chef" class="nav-link text-coffee-800 font-body text-sm font-medium">料理人</a>
+          <a href="#gallery" class="nav-link text-coffee-800 font-body text-sm font-medium">店内</a>
+          <a href="#access" class="nav-link text-coffee-800 font-body text-sm font-medium">アクセス</a>
+          <a href="#reservation" class="btn-primary inline-block bg-coffee-600 text-white px-6 py-2.5 rounded-lg text-sm font-medium">ご予約</a>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button id="menuToggle" class="lg:hidden flex flex-col gap-1.5 p-2" aria-label="メニューを開く">
+          <span class="block w-6 h-0.5 bg-coffee-800 transition-transform duration-200" id="bar1"></span>
+          <span class="block w-6 h-0.5 bg-coffee-800 transition-opacity duration-200" id="bar2"></span>
+          <span class="block w-6 h-0.5 bg-coffee-800 transition-transform duration-200" id="bar3"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 bottom-0 w-72 bg-cream shadow-2xl z-50 lg:hidden">
+      <div class="p-8 pt-20 flex flex-col gap-8">
+        <a href="#story" class="text-coffee-800 font-heading text-xl" onclick="closeMobileMenu()">わたしたちのこと</a>
+        <a href="#menu" class="text-coffee-800 font-heading text-xl" onclick="closeMobileMenu()">メニュー</a>
+        <a href="#chef" class="text-coffee-800 font-heading text-xl" onclick="closeMobileMenu()">料理人</a>
+        <a href="#gallery" class="text-coffee-800 font-heading text-xl" onclick="closeMobileMenu()">店内</a>
+        <a href="#access" class="text-coffee-800 font-heading text-xl" onclick="closeMobileMenu()">アクセス</a>
+        <a href="#reservation" class="btn-primary bg-coffee-600 text-white px-6 py-3 rounded-lg text-center font-medium" onclick="closeMobileMenu()">ご予約</a>
+      </div>
+      <button class="absolute top-6 right-6 text-coffee-800 p-2" onclick="closeMobileMenu()" aria-label="メニューを閉じる">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+
+  <!-- ============================== -->
+  <!-- SECTION 1: HERO -->
+  <!-- ============================== -->
+  <section id="hero" class="relative min-h-screen flex items-center overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+      <img
+        src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1920&q=80"
+        alt="温かみのあるカフェの内装"
+        class="hero-bg w-full h-full object-cover scale-110"
+        id="heroBg"
+      >
+      <div class="absolute inset-0 bg-gradient-to-r from-coffee-900/70 via-coffee-900/40 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-coffee-900/30 via-transparent to-transparent"></div>
+    </div>
+
+    <!-- Grain overlay -->
+    <div class="grain-overlay" style="opacity: 0.06;">
+      <svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)" opacity="0.5"/></svg>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 pt-24 pb-24 lg:pt-0 lg:pb-0">
+      <div class="max-w-2xl">
+        <p class="font-body text-coffee-100/80 text-sm tracking-[0.2em] uppercase mb-6 reveal" style="transition-duration: 400ms;">
+          Farm to Table Cafe in Sangenjaya
+        </p>
+        <h1 class="font-heading text-white text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight mb-8 reveal" style="transition-duration: 600ms; transition-delay: 100ms;">
+          土から届く、<br>一皿の物語。
+        </h1>
+        <p class="font-body text-coffee-100/90 text-base lg:text-lg leading-relaxed mb-12 max-w-lg reveal" style="transition-duration: 500ms; transition-delay: 200ms;">
+          三軒茶屋の路地裏に佇む小さなカフェ。<br>
+          近郊の農家さんが今朝摘んだ野菜を、<br class="hidden sm:block">
+          そのまま一皿に仕立てます。
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 reveal" style="transition-duration: 500ms; transition-delay: 300ms;">
+          <a href="#menu" class="btn-primary bg-coffee-600 hover:bg-coffee-700 text-white px-8 py-4 rounded-lg text-base font-medium text-center">
+            本日のメニューを見る
+          </a>
+          <a href="#story" class="btn-secondary border-2 border-white/40 hover:border-white/70 text-white hover:bg-white/10 px-8 py-4 rounded-lg text-base font-medium text-center">
+            わたしたちのこと
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 reveal" style="transition-duration: 600ms; transition-delay: 500ms;">
+      <span class="text-white/60 text-xs font-body tracking-widest">SCROLL</span>
+      <div class="w-px h-12 bg-white/30 relative overflow-hidden">
+        <div class="w-full h-4 bg-white/80 absolute animate-bounce"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================== -->
+  <!-- SECTION 2: STORY / PHILOSOPHY -->
+  <!-- ============================== -->
+  <section id="story" class="relative py-24 lg:py-32" style="padding-bottom: 80px;">
+    <!-- Grain -->
+    <div class="grain-overlay" style="opacity: 0.05;">
+      <svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)" opacity="0.4"/></svg>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
+      <!-- Section header -->
+      <div class="mb-16 lg:mb-24 reveal" style="transition-duration: 500ms;">
+        <p class="font-body text-moss-500 text-sm tracking-[0.15em] uppercase mb-4 font-medium">Our Philosophy</p>
+        <h2 class="font-heading text-coffee-800 text-3xl lg:text-5xl font-bold leading-snug">
+          畑の声を聴く。<br class="hidden sm:block">それが、はじまり。
+        </h2>
+      </div>
+
+      <!-- Story timeline -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
+        <!-- Left: Large image -->
+        <div class="lg:col-span-5 reveal-left" style="transition-duration: 600ms;">
+          <div class="rounded-[20px] overflow-hidden aspect-[4/5]">
+            <img
+              src="https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?w=800&q=80"
+              alt="農園の朝の風景"
+              class="w-full h-full object-cover"
+            >
+          </div>
+        </div>
+
+        <!-- Right: Story text blocks -->
+        <div class="lg:col-span-7 lg:pl-8 flex flex-col gap-16 lg:gap-20">
+          <!-- Block 1 -->
+          <div class="reveal" style="transition-duration: 400ms; transition-delay: 100ms;">
+            <div class="flex items-start gap-6">
+              <div class="flex-shrink-0 w-12 h-12 rounded-full bg-moss-50 border-2 border-moss-200 flex items-center justify-center">
+                <span class="font-heading text-moss-500 text-sm font-bold">01</span>
+              </div>
+              <div>
+                <h3 class="font-heading text-coffee-800 text-xl lg:text-2xl font-semibold mb-4">
+                  農家さんとの朝が、メニューになる
+                </h3>
+                <p class="font-body text-coffee-800 text-base leading-[1.9] max-w-lg">
+                  毎朝5時、世田谷と神奈川の契約農家さんから届く野菜たち。泥つきのまま届くそれを、キッチンで洗い、切り、火を通す。その日の収穫が、その日のメニューを決める。だからうちの黒板メニューは、毎朝変わります。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Block 2 -->
+          <div class="reveal" style="transition-duration: 400ms; transition-delay: 200ms;">
+            <div class="flex items-start gap-6">
+              <div class="flex-shrink-0 w-12 h-12 rounded-full bg-moss-50 border-2 border-moss-200 flex items-center justify-center">
+                <span class="font-heading text-moss-500 text-sm font-bold">02</span>
+              </div>
+              <div>
+                <h3 class="font-heading text-coffee-800 text-xl lg:text-2xl font-semibold mb-4">
+                  素材をいじらない。引き出すだけ
+                </h3>
+                <p class="font-body text-coffee-800 text-base leading-[1.9] max-w-lg">
+                  調理は最小限にとどめます。完熟トマトにはオリーブオイルと塩。甘みの強い春キャベツは、ちぎってそのままプレートへ。食材が一番おいしい瞬間を、そのままテーブルに届けたい。それだけです。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inline image -->
+          <div class="reveal-right" style="transition-duration: 600ms; transition-delay: 150ms;">
+            <div class="rounded-[12px] overflow-hidden aspect-[16/9] max-w-md">
+              <img
+                src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80"
+                alt="新鮮な野菜を調理するキッチン"
+                class="w-full h-full object-cover"
+              >
+            </div>
+          </div>
+
+          <!-- Block 3 -->
+          <div class="reveal" style="transition-duration: 400ms; transition-delay: 300ms;">
+            <div class="flex items-start gap-6">
+              <div class="flex-shrink-0 w-12 h-12 rounded-full bg-moss-50 border-2 border-moss-200 flex items-center justify-center">
+                <span class="font-heading text-moss-500 text-sm font-bold">03</span>
+              </div>
+              <div>
+                <h3 class="font-heading text-coffee-800 text-xl lg:text-2xl font-semibold mb-4">
+                  食べ残しも、土に還す
+                </h3>
+                <p class="font-body text-coffee-800 text-base leading-[1.9] max-w-lg">
+                  コンポストで堆肥にし、農家さんへ戻す。野菜くずが肥料になり、やがて新しい芽が出る。この小さな循環が、HARVEST TABLEの根っこにある考え方。ゴミ箱が空になる日が、一番うれしい日です。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================== -->
+  <!-- SECTION 3: MENU HIGHLIGHTS -->
+  <!-- ============================== -->
+  <section id="menu" class="relative bg-warm-white py-20 lg:py-28" style="padding-bottom: 64px;">
+    <!-- Grain -->
+    <div class="grain-overlay" style="opacity: 0.07;">
+      <svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)" opacity="0.4"/></svg>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
+      <!-- Section header -->
+      <div class="text-center mb-16 lg:mb-20">
+        <p class="font-body text-moss-500 text-sm tracking-[0.15em] uppercase mb-4 font-medium reveal" style="transition-duration: 400ms;">Today's Menu</p>
+        <h2 class="font-heading text-coffee-800 text-3xl lg:text-5xl font-bold reveal" style="transition-duration: 500ms; transition-delay: 80ms;">
+          旬を、まるごと。
+        </h2>
+        <p class="font-body text-coffee-700 text-base mt-6 max-w-md mx-auto leading-relaxed reveal" style="transition-duration: 400ms; transition-delay: 160ms;">
+          黒板に書かれるメニューは毎朝変わります。<br>
+          ここでは、定番の人気メニューをご紹介。
+        </p>
+      </div>
+
+      <!-- Menu grid: asymmetric layout -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8">
+        <!-- Item 1: Large (spans 7 cols) -->
+        <div class="md:col-span-7 menu-card group reveal-scale" style="transition-duration: 600ms;">
+          <div class="relative rounded-[20px] overflow-hidden bg-white shadow-sm hover:shadow-md" style="transition: box-shadow 200ms var(--ease-standard);">
+            <div class="aspect-[4/3] overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=900&q=80"
+                alt="季節の野菜プレート"
+                class="menu-img w-full h-full object-cover"
+              >
+            </div>
+            <div class="p-6 lg:p-8">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <h3 class="font-heading text-coffee-800 text-xl lg:text-2xl font-semibold mb-2">季節の野菜プレート</h3>
+                  <p class="font-body text-coffee-700 text-sm leading-relaxed">
+                    その朝届いた6〜8種の野菜を、グリル・蒸し・生の3通りで盛り合わせ。自家製バーニャカウダソースと一緒に。パンかごはんを選べます。
+                  </p>
+                </div>
+                <span class="font-heading text-coffee-600 text-lg lg:text-xl font-bold whitespace-nowrap">&yen;1,480</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2: Medium (spans 5 cols) -->
+        <div class="md:col-span-5 menu-card group reveal-scale" style="transition-duration: 650ms; transition-delay: 100ms;">
+          <div class="relative rounded-[20px] overflow-hidden bg-white shadow-sm hover:shadow-md" style="transition: box-shadow 200ms var(--ease-standard);">
+            <div class="aspect-[3/4] md:aspect-[4/5] overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=700&q=80"
+                alt="自家製スコーンセット"
+                class="menu-img w-full h-full object-cover"
+              >
+            </div>
+            <div class="p-6">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <h3 class="font-heading text-coffee-800 text-lg lg:text-xl font-semibold mb-2">自家製スコーンセット</h3>
+                  <p class="font-body text-coffee-700 text-sm leading-relaxed">
+                    北海道産バターと三温糖で焼く、外はサクッ中はしっとりのスコーン。季節のジャムとクロテッドクリーム付き。
+                  </p>
+                </div>
+                <span class="font-heading text-coffee-600 text-lg font-bold whitespace-nowrap">&yen;980</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3: Medium (spans 5 cols) -->
+        <div class="md:col-span-5 menu-card group reveal-scale" style="transition-duration: 650ms; transition-delay: 60ms;">
+          <div class="relative rounded-[20px] overflow-hidden bg-white shadow-sm hover:shadow-md" style="transition: box-shadow 200ms var(--ease-standard);">
+            <div class="aspect-[3/4] md:aspect-[4/5] overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=700&q=80"
+                alt="ハーベストバーガー"
+                class="menu-img w-full h-full object-cover"
+              >
+            </div>
+            <div class="p-6">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <h3 class="font-heading text-coffee-800 text-lg lg:text-xl font-semibold mb-2">ハーベストバーガー</h3>
+                  <p class="font-body text-coffee-700 text-sm leading-relaxed">
+                    粗挽きの国産牛パティに、グリル野菜とスモークチーズ。自家製バンズはもっちり食感。ポテトとピクルスが付きます。
+                  </p>
+                </div>
+                <span class="font-heading text-coffee-600 text-lg font-bold whitespace-nowrap">&yen;1,680</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 4: Large (spans 7 cols) -->
+        <div class="md:col-span-7 menu-card group reveal-scale" style="transition-duration: 600ms; transition-delay: 120ms;">
+          <div class="relative rounded-[20px] overflow-hidden bg-white shadow-sm hover:shadow-md" style="transition: box-shadow 200ms var(--ease-standard);">
+            <div class="aspect-[4/3] overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&q=80"
+                alt="農園サラダボウル"
+                class="menu-img w-full h-full object-cover"
+              >
+            </div>
+            <div class="p-6 lg:p-8">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <h3 class="font-heading text-coffee-800 text-xl lg:text-2xl font-semibold mb-2">農園サラダボウル</h3>
+                  <p class="font-body text-coffee-700 text-sm leading-relaxed">
+                    契約農家さん自慢の葉物野菜をたっぷり。キヌア、アボカド、自家製グラノーラをのせて。レモンハーブドレッシングで仕上げます。
+                  </p>
+                </div>
+                <span class="font-heading text-coffee-600 text-lg lg:text-xl font-bold whitespace-nowrap">&yen;1,280</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 5: Full width, horizontal layout -->
+        <div class="md:col-span-12 menu-card group reveal" style="transition-duration: 500ms; transition-delay: 80ms;">
+          <div class="relative rounded-[20px] overflow-hidden bg-white shadow-sm hover:shadow-md flex flex-col sm:flex-row" style="transition: box-shadow 200ms var(--ease-standard);">
+            <div class="sm:w-2/5 aspect-[16/9] sm:aspect-auto overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&q=80"
+                alt="本日のスープ"
+                class="menu-img w-full h-full object-cover"
+              >
+            </div>
+            <div class="p-6 lg:p-8 flex-1 flex flex-col justify-center">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <h3 class="font-heading text-coffee-800 text-xl lg:text-2xl font-semibold mb-2">本日のスープ</h3>
+                  <p class="font-body text-coffee-700 text-sm leading-relaxed max-w-md">
+                    日によって変わるポタージュ。冬はかぼちゃやごぼう、春はグリーンピースや新玉ねぎ。パンと一緒にどうぞ。寒い日はこれだけで心が解ける、そんなスープです。
+                  </p>
+                </div>
+                <span class="font-heading text-coffee-600 text-lg lg:text-xl font-bold whitespace-nowrap">&yen;680</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Menu note -->
+      <p class="font-body text-coffee-600 text-sm text-center mt-12 reveal" style="transition-duration: 300ms;">
+        ※ 仕入れ状況により内容・価格が変わる場合があります。<br>
+        ※ アレルギーをお持ちの方はスタッフまでお声がけください。
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ============================== -->
+  <!-- SECTION 4: CHEF / OWNER -->
+  <!-- ============================== -->
+  <section id="chef" class="relative py-20 lg:py-28 bg-cream" style="padding-bottom: 48px;">
+    <!-- Grain -->
+    <div class="grain-overlay" style="opacity: 0.05;">
+      <svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)" opacity="0.3"/></svg>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <!-- Photo -->
+        <div class="reveal-left" style="transition-duration: 600ms;">
+          <div class="relative">
+            <div class="rounded-[12px] overflow-hidden aspect-[3/4] max-w-md mx-auto lg:mx-0">
+              <img
+                src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=700&q=80"
+                alt="オーナーシェフ 田中 陽介"
+                class="w-full h-full object-cover"
+              >
+            </div>
+            <!-- Decorative accent -->
+            <div class="absolute -bottom-4 -right-4 lg:-bottom-6 lg:-right-6 w-32 h-32 lg:w-48 lg:h-48 bg-moss-100 rounded-[20px] -z-10"></div>
+          </div>
+        </div>
+
+        <!-- Text -->
+        <div class="reveal-right" style="transition-duration: 500ms; transition-delay: 100ms;">
+          <p class="font-body text-moss-500 text-sm tracking-[0.15em] uppercase mb-4 font-medium">Chef & Owner</p>
+          <h2 class="font-heading text-coffee-800 text-3xl lg:text-4xl font-bold mb-3 leading-snug">
+            田中 陽介
+          </h2>
+          <p class="font-heading text-coffee-500 text-base italic mb-8">Yosuke Tanaka</p>
+
+          <div class="space-y-6">
+            <p class="font-body text-coffee-800 text-base leading-[1.9]">
+              都内のフレンチレストランで10年。星付きの厨房で学んだ技術は確かに宝物でした。けれどある日、世田谷の畑で食べた採れたてのトマトに、すべてが変わりました。
+            </p>
+            <p class="font-body text-coffee-800 text-base leading-[1.9]">
+              「こんなにおいしいなら、余計なことしなくていい」
+            </p>
+            <p class="font-body text-coffee-800 text-base leading-[1.9]">
+              そう気づいた瞬間に、自分の店を持とうと決めた。2019年、三軒茶屋にHARVEST TABLEをオープン。「畑から来たものを、できるだけそのままテーブルへ」。やっていることは単純。でも、単純なことを毎日ちゃんとやるのが、一番難しいと感じています。
+            </p>
+            <p class="font-body text-coffee-800 text-base leading-[1.9]">
+              週に一度は畑へ行きます。土に触れると、自分が何を作りたいか思い出せるから。
+            </p>
+          </div>
+
+          <div class="mt-10 flex items-center gap-4">
+            <div class="w-16 h-px bg-coffee-300"></div>
+            <span class="font-body text-coffee-500 text-sm">2019年創業 | 三軒茶屋</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================== -->
+  <!-- SECTION 5: INTERIOR GALLERY -->
+  <!-- ============================== -->
+  <section id="gallery" class="relative py-24 lg:py-32 bg-coffee-800" style="padding-bottom: 96px;">
+    <!-- Grain -->
+    <div class="grain-overlay" style="opacity: 0.08;">
+      <svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)" opacity="0.4"/></svg>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
+      <!-- Section header -->
+      <div class="text-center mb-14 lg:mb-20">
+        <p class="font-body text-moss-300 text-sm tracking-[0.15em] uppercase mb-4 font-medium reveal" style="transition-duration: 400ms;">Gallery</p>
+        <h2 class="font-heading text-cream text-3xl lg:text-5xl font-bold reveal" style="transition-duration: 500ms; transition-delay: 80ms;">
+          光と木と、静かな時間。
+        </h2>
+      </div>
+
+      <!-- Masonry-like grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-4">
+        <!-- Row 1: tall + wide + square -->
+        <div class="row-span-2 gallery-item overflow-hidden rounded-[12px] reveal-scale" style="transition-duration: 700ms;">
+          <img
+            src="https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=600&q=80"
+            alt="木のカウンターとペンダントライト"
+            class="w-full h-full object-cover"
+          >
+        </div>
+        <div class="col-span-2 gallery-item overflow-hidden rounded-[12px] reveal-scale" style="transition-duration: 700ms; transition-delay: 80ms;">
+          <img
+            src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=800&q=80"
+            alt="テラス席の朝の光"
+            class="w-full h-full object-cover aspect-[16/9]"
+          >
+        </div>
+        <div class="row-span-2 gallery-item overflow-hidden rounded-[12px] reveal-scale" style="transition-duration: 700ms; transition-delay: 160ms;">
+          <img
+            src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80"
+            alt="ハンドドリップのコーヒー"
+            class="w-full h-full object-cover"
+          >
+        </div>
+
+        <!-- Row 2 -->
+        <div class="gallery-item overflow-hidden rounded-[12px] reveal-scale" style="transition-duration: 700ms; transition-delay: 200ms;">
+          <img
+            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&q=80"
+            alt="奥の席とドライフラワー"
+            class="w-full h-full object-cover aspect-square"
+          >
+        </div>
+        <div class="gallery-item overflow-hidden rounded-[12px] reveal-scale" style="transition-duration: 700ms; transition-delay: 240ms;">
+          <img
+            src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80"
+            alt="盛り付けの瞬間"
+            class="w-full h-full object-cover aspect-square"
+          >
+        </div>
+
+        <!-- Row 3: wide bottom -->
+        <div class="col-span-2 gallery-item overflow-hidden rounded-[12px] reveal-scale" style="transition-duration: 700ms; transition-delay: 280ms;">
+          <img
+            src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=800&q=80"
+            alt="キッチンのオープンカウンター"
+            class="w-full h-full object-cover aspect-[16/9]"
+          >
+        </div>
+        <div class="col-span-2 gallery-item overflow-hidden rounded-[12px] reveal-scale" style="transition-duration: 700ms; transition-delay: 320ms;">
+          <img
+            src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=800&q=80"
+            alt="窓際のテーブル席"
+            class="w-full h-full object-cover aspect-[16/9]"
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================== -->
+  <!-- SECTION 6: ACCESS & HOURS -->
+  <!-- ============================== -->
+  <section id="access" class="relative py-20 lg:py-28 bg-cream" style="padding-bottom: 48px;">
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <!-- Info side -->
+        <div>
+          <p class="font-body text-moss-500 text-sm tracking-[0.15em] uppercase mb-4 font-medium reveal" style="transition-duration: 400ms;">Access & Hours</p>
+          <h2 class="font-heading text-coffee-800 text-3xl lg:text-4xl font-bold mb-12 reveal" style="transition-duration: 500ms; transition-delay: 80ms;">
+            おいでください。
+          </h2>
+
+          <div class="space-y-10">
+            <!-- Address -->
+            <div class="reveal" style="transition-duration: 400ms; transition-delay: 120ms;">
+              <h3 class="font-heading text-coffee-800 text-lg font-semibold mb-3 flex items-center gap-3">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5c4033" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                住所
+              </h3>
+              <p class="font-body text-coffee-800 text-base leading-relaxed pl-8">
+                〒154-0024<br>
+                東京都世田谷区三軒茶屋2-15-3<br>
+                グリーンヒルズ三茶 1F
+              </p>
+              <p class="font-body text-coffee-600 text-sm pl-8 mt-2">
+                三軒茶屋駅 南口から徒歩4分<br>
+                世田谷通り沿い、花屋さんの隣のレンガの建物です
+              </p>
+            </div>
+
+            <!-- Hours -->
+            <div class="reveal" style="transition-duration: 400ms; transition-delay: 180ms;">
+              <h3 class="font-heading text-coffee-800 text-lg font-semibold mb-3 flex items-center gap-3">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5c4033" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                営業時間
+              </h3>
+              <div class="pl-8">
+                <div class="flex items-baseline gap-4 mb-2">
+                  <span class="font-body text-coffee-800 text-base font-medium w-28">モーニング</span>
+                  <span class="font-body text-coffee-800 text-base">8:00 - 11:00</span>
+                </div>
+                <div class="flex items-baseline gap-4 mb-2">
+                  <span class="font-body text-coffee-800 text-base font-medium w-28">ランチ</span>
+                  <span class="font-body text-coffee-800 text-base">11:00 - 14:30</span>
+                </div>
+                <div class="flex items-baseline gap-4 mb-2">
+                  <span class="font-body text-coffee-800 text-base font-medium w-28">ティータイム</span>
+                  <span class="font-body text-coffee-800 text-base">14:30 - 18:00</span>
+                </div>
+                <p class="font-body text-coffee-600 text-sm mt-3">
+                  定休日: 水曜日（祝日の場合は翌木曜日）
+                </p>
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="reveal" style="transition-duration: 400ms; transition-delay: 240ms;">
+              <h3 class="font-heading text-coffee-800 text-lg font-semibold mb-3 flex items-center gap-3">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5c4033" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                お電話
+              </h3>
+              <a href="tel:03-6805-1234" class="font-body text-coffee-800 text-xl font-semibold pl-8 hover:text-coffee-600" style="transition: color 150ms var(--ease-standard);">
+                03-6805-1234
+              </a>
+            </div>
+
+            <!-- Parking -->
+            <div class="reveal" style="transition-duration: 400ms; transition-delay: 300ms;">
+              <h3 class="font-heading text-coffee-800 text-lg font-semibold mb-3 flex items-center gap-3">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5c4033" stroke-width="2" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                駐車場
+              </h3>
+              <p class="font-body text-coffee-800 text-base pl-8">
+                専用駐車場はありません。<br>
+                近隣のコインパーキングをご利用ください。<br>
+                <span class="text-coffee-600 text-sm">自転車は店舗前のラックに駐輪いただけます。</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Map side -->
+        <div class="reveal-right" style="transition-duration: 600ms; transition-delay: 100ms;">
+          <div class="rounded-[20px] overflow-hidden bg-coffee-100 aspect-[4/3] lg:aspect-auto lg:h-full min-h-[320px] flex items-center justify-center relative">
+            <!-- Map placeholder with stylized design -->
+            <div class="absolute inset-0 bg-coffee-100">
+              <img
+                src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&q=80"
+                alt="三軒茶屋周辺の地図イメージ"
+                class="w-full h-full object-cover opacity-30"
+              >
+            </div>
+            <div class="relative text-center p-8">
+              <div class="w-16 h-16 mx-auto mb-4 bg-coffee-600 rounded-full flex items-center justify-center">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <p class="font-heading text-coffee-800 text-lg font-semibold mb-2">HARVEST TABLE</p>
+              <p class="font-body text-coffee-600 text-sm mb-6">三軒茶屋駅 南口 徒歩4分</p>
+              <a
+                href="https://maps.google.com/?q=東京都世田谷区三軒茶屋2-15-3"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-primary inline-block bg-coffee-600 hover:bg-coffee-700 text-white px-6 py-3 rounded-lg text-sm font-medium"
+              >
+                Google Map で見る
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================== -->
+  <!-- SECTION 7: RESERVATION CTA -->
+  <!-- ============================== -->
+  <section id="reservation" class="relative py-20 lg:py-24 bg-warm-white" style="padding-bottom: 32px;">
+    <!-- Grain -->
+    <div class="grain-overlay" style="opacity: 0.06;">
+      <svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)" opacity="0.4"/></svg>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20">
+        <!-- Left: CTA text -->
+        <div class="flex flex-col justify-center">
+          <p class="font-body text-moss-500 text-sm tracking-[0.15em] uppercase mb-4 font-medium reveal" style="transition-duration: 400ms;">Reservation</p>
+          <h2 class="font-heading text-coffee-800 text-3xl lg:text-4xl font-bold mb-6 leading-snug reveal" style="transition-duration: 500ms; transition-delay: 80ms;">
+            席のご予約は、<br>お電話でも。
+          </h2>
+          <p class="font-body text-coffee-800 text-base leading-relaxed mb-8 max-w-md reveal" style="transition-duration: 400ms; transition-delay: 150ms;">
+            10名様まではお電話で承ります。11名以上の貸切は、下のフォームからご相談ください。ランチタイムは混み合いますので、ご予約がおすすめです。
+          </p>
+
+          <!-- Phone CTA -->
+          <div class="reveal" style="transition-duration: 400ms; transition-delay: 200ms;">
+            <a href="tel:03-6805-1234" class="inline-flex items-center gap-4 group">
+              <div class="w-14 h-14 bg-coffee-600 rounded-full flex items-center justify-center group-hover:bg-coffee-700" style="transition: background-color 150ms var(--ease-standard);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div>
+                <span class="font-heading text-coffee-800 text-2xl lg:text-3xl font-bold">03-6805-1234</span>
+                <p class="font-body text-coffee-600 text-sm mt-1">受付: 8:00 - 17:30（水曜定休）</p>
+              </div>
+            </a>
+          </div>
+
+          <!-- Divider -->
+          <div class="flex items-center gap-6 my-10 reveal" style="transition-duration: 300ms; transition-delay: 250ms;">
+            <div class="h-px flex-1 bg-coffee-200"></div>
+            <span class="font-body text-coffee-500 text-sm">または</span>
+            <div class="h-px flex-1 bg-coffee-200"></div>
+          </div>
+
+          <p class="font-body text-coffee-600 text-sm reveal" style="transition-duration: 300ms; transition-delay: 300ms;">
+            右のフォームからもお問い合わせいただけます。<br>
+            翌営業日中にお電話でご連絡いたします。
+          </p>
+        </div>
+
+        <!-- Right: Form -->
+        <div class="reveal-right" style="transition-duration: 500ms; transition-delay: 100ms;">
+          <form
+            id="reservationForm"
+            class="bg-white rounded-[20px] p-8 lg:p-10 shadow-sm border border-coffee-100"
+            onsubmit="handleFormSubmit(event)"
+          >
+            <h3 class="font-heading text-coffee-800 text-xl font-semibold mb-8">ご予約・お問い合わせ</h3>
+
+            <div class="space-y-6">
+              <!-- Name -->
+              <div>
+                <label for="name" class="block font-body text-coffee-800 text-sm font-medium mb-2">
+                  お名前 <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  placeholder="山田 太郎"
+                  class="form-input w-full border border-coffee-200 rounded px-4 py-3 font-body text-base text-coffee-800 placeholder:text-coffee-300 bg-cream"
+                >
+              </div>
+
+              <!-- Phone -->
+              <div>
+                <label for="phone" class="block font-body text-coffee-800 text-sm font-medium mb-2">
+                  電話番号 <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  required
+                  placeholder="090-1234-5678"
+                  class="form-input w-full border border-coffee-200 rounded px-4 py-3 font-body text-base text-coffee-800 placeholder:text-coffee-300 bg-cream"
+                >
+              </div>
+
+              <!-- Party size & Date row -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label for="party-size" class="block font-body text-coffee-800 text-sm font-medium mb-2">
+                    ご来店人数
+                  </label>
+                  <select
+                    id="party-size"
+                    name="party-size"
+                    class="form-input w-full border border-coffee-200 rounded px-4 py-3 font-body text-base text-coffee-800 bg-cream appearance-none"
+                    style="background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%235c4033%22%20stroke-width%3D%222%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 12px center;"
+                  >
+                    <option value="">選択してください</option>
+                    <option value="1">1名</option>
+                    <option value="2">2名</option>
+                    <option value="3">3名</option>
+                    <option value="4">4名</option>
+                    <option value="5">5名</option>
+                    <option value="6">6名</option>
+                    <option value="7">7名</option>
+                    <option value="8">8名</option>
+                    <option value="9">9名</option>
+                    <option value="10">10名</option>
+                    <option value="11+">11名以上（貸切相談）</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="date" class="block font-body text-coffee-800 text-sm font-medium mb-2">
+                    ご希望日
+                  </label>
+                  <input
+                    type="date"
+                    id="date"
+                    name="date"
+                    class="form-input w-full border border-coffee-200 rounded px-4 py-3 font-body text-base text-coffee-800 bg-cream"
+                  >
+                </div>
+              </div>
+
+              <!-- Time slot -->
+              <div>
+                <label for="time-slot" class="block font-body text-coffee-800 text-sm font-medium mb-2">
+                  ご希望時間帯
+                </label>
+                <select
+                  id="time-slot"
+                  name="time-slot"
+                  class="form-input w-full border border-coffee-200 rounded px-4 py-3 font-body text-base text-coffee-800 bg-cream appearance-none"
+                  style="background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%235c4033%22%20stroke-width%3D%222%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 12px center;"
+                >
+                  <option value="">選択してください</option>
+                  <option value="morning">モーニング (8:00 - 11:00)</option>
+                  <option value="lunch">ランチ (11:00 - 14:30)</option>
+                  <option value="tea">ティータイム (14:30 - 18:00)</option>
+                </select>
+              </div>
+
+              <!-- Message -->
+              <div>
+                <label for="message" class="block font-body text-coffee-800 text-sm font-medium mb-2">
+                  メッセージ
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="3"
+                  placeholder="アレルギー、お子様連れ、お祝いなどご要望があればお書きください"
+                  class="form-input w-full border border-coffee-200 rounded px-4 py-3 font-body text-base text-coffee-800 placeholder:text-coffee-300 bg-cream resize-vertical"
+                ></textarea>
+              </div>
+
+              <!-- Submit -->
+              <button
+                type="submit"
+                class="btn-primary w-full bg-coffee-600 hover:bg-coffee-700 text-white py-4 rounded-lg font-body text-base font-medium"
+              >
+                送信する
+              </button>
+              <p class="font-body text-coffee-500 text-xs text-center">
+                翌営業日中にお電話でご連絡いたします
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================== -->
+  <!-- FOOTER -->
+  <!-- ============================== -->
+  <footer class="bg-coffee-900 py-16 lg:py-20">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 mb-12">
+        <!-- Brand -->
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-full bg-coffee-600 flex items-center justify-center">
+              <span class="text-white font-heading text-base font-bold">H</span>
+            </div>
+            <span class="font-heading text-cream text-lg font-semibold tracking-wide">HARVEST TABLE</span>
+          </div>
+          <p class="font-body text-coffee-300 text-sm leading-relaxed">
+            三軒茶屋の路地裏カフェ。<br>
+            地元農家から届く旬の食材で、<br>
+            季節の一皿をお届けします。
+          </p>
+        </div>
+
+        <!-- Links -->
+        <div>
+          <h4 class="font-heading text-cream text-sm font-semibold mb-6 tracking-wide">MENU</h4>
+          <ul class="space-y-3">
+            <li><a href="#story" class="font-body text-coffee-300 text-sm hover:text-cream" style="transition: color 150ms var(--ease-standard);">わたしたちのこと</a></li>
+            <li><a href="#menu" class="font-body text-coffee-300 text-sm hover:text-cream" style="transition: color 150ms var(--ease-standard);">メニュー</a></li>
+            <li><a href="#chef" class="font-body text-coffee-300 text-sm hover:text-cream" style="transition: color 150ms var(--ease-standard);">料理人</a></li>
+            <li><a href="#gallery" class="font-body text-coffee-300 text-sm hover:text-cream" style="transition: color 150ms var(--ease-standard);">店内</a></li>
+            <li><a href="#access" class="font-body text-coffee-300 text-sm hover:text-cream" style="transition: color 150ms var(--ease-standard);">アクセス</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="font-heading text-cream text-sm font-semibold mb-6 tracking-wide">CONTACT</h4>
+          <div class="space-y-3">
+            <p class="font-body text-coffee-300 text-sm">
+              〒154-0024<br>
+              東京都世田谷区三軒茶屋2-15-3
+            </p>
+            <a href="tel:03-6805-1234" class="font-body text-coffee-300 text-sm hover:text-cream block" style="transition: color 150ms var(--ease-standard);">
+              TEL: 03-6805-1234
+            </a>
+            <p class="font-body text-coffee-300 text-sm">
+              営業: 8:00 - 18:00（水曜定休）
+            </p>
+          </div>
+
+          <!-- Social icons (placeholder) -->
+          <div class="flex gap-4 mt-6">
+            <a href="#" aria-label="Instagram" class="w-10 h-10 rounded-full bg-coffee-800 flex items-center justify-center hover:bg-coffee-700" style="transition: background-color 150ms var(--ease-standard);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c9a98e" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="#c9a98e" stroke="none"/></svg>
+            </a>
+            <a href="#" aria-label="X (Twitter)" class="w-10 h-10 rounded-full bg-coffee-800 flex items-center justify-center hover:bg-coffee-700" style="transition: background-color 150ms var(--ease-standard);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#c9a98e"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="border-t border-coffee-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="font-body text-coffee-500 text-xs">
+          &copy; 2026 HARVEST TABLE. All rights reserved.
+        </p>
+        <p class="font-body text-coffee-500 text-xs">
+          Farm to Table Cafe in Sangenjaya, Tokyo
+        </p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ============================== -->
+  <!-- SCRIPTS -->
+  <!-- ============================== -->
+  <script>
+    // ---- Mobile menu ----
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const bar1 = document.getElementById('bar1');
+    const bar2 = document.getElementById('bar2');
+    const bar3 = document.getElementById('bar3');
+    let menuOpen = false;
+
+    menuToggle.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      if (menuOpen) {
+        mobileMenu.classList.add('open');
+        bar1.style.transform = 'rotate(45deg) translate(4px, 4px)';
+        bar2.style.opacity = '0';
+        bar3.style.transform = 'rotate(-45deg) translate(4px, -4px)';
+        document.body.style.overflow = 'hidden';
+      } else {
+        closeMobileMenu();
+      }
+    });
+
+    function closeMobileMenu() {
+      menuOpen = false;
+      mobileMenu.classList.remove('open');
+      bar1.style.transform = '';
+      bar2.style.opacity = '';
+      bar3.style.transform = '';
+      document.body.style.overflow = '';
+    }
+
+
+    // ---- Scroll reveal (Intersection Observer) ----
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -60px 0px'
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+
+    // ---- Hero parallax / zoom on scroll ----
+    const heroBg = document.getElementById('heroBg');
+    const heroSection = document.getElementById('hero');
+
+    function handleHeroParallax() {
+      const scrollY = window.scrollY;
+      const heroHeight = heroSection.offsetHeight;
+      if (scrollY <= heroHeight) {
+        const progress = scrollY / heroHeight;
+        const scale = 1.1 + (progress * 0.08);
+        const translateY = scrollY * 0.3;
+        heroBg.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+      }
+    }
+
+    window.addEventListener('scroll', handleHeroParallax, { passive: true });
+
+
+    // ---- Navbar background on scroll ----
+    const navbar = document.getElementById('navbar');
+
+    function handleNavScroll() {
+      if (window.scrollY > 80) {
+        navbar.style.backgroundColor = 'rgba(254, 252, 248, 0.97)';
+        navbar.style.boxShadow = '0 1px 8px rgba(59, 48, 40, 0.08)';
+      } else {
+        navbar.style.backgroundColor = 'rgba(254, 252, 248, 0.9)';
+        navbar.style.boxShadow = 'none';
+      }
+    }
+
+    window.addEventListener('scroll', handleNavScroll, { passive: true });
+
+
+    // ---- Form submit handler (mailto fallback) ----
+    function handleFormSubmit(e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const name = form.querySelector('#name').value;
+      const phone = form.querySelector('#phone').value;
+      const partySize = form.querySelector('#party-size').value;
+      const date = form.querySelector('#date').value;
+      const timeSlot = form.querySelector('#time-slot').value;
+      const message = form.querySelector('#message').value;
+
+      // Validate required fields
+      if (!name || !phone) {
+        alert('お名前と電話番号は必須です。');
+        return;
+      }
+
+      // Build mailto
+      const timeSlotLabels = {
+        morning: 'モーニング (8:00 - 11:00)',
+        lunch: 'ランチ (11:00 - 14:30)',
+        tea: 'ティータイム (14:30 - 18:00)',
+      };
+
+      const subject = encodeURIComponent(`【ご予約】${name}様 ${partySize ? partySize + '名' : ''}`);
+      const body = encodeURIComponent(
+        `お名前: ${name}\n` +
+        `電話番号: ${phone}\n` +
+        `人数: ${partySize || '未選択'}\n` +
+        `希望日: ${date || '未選択'}\n` +
+        `希望時間帯: ${timeSlotLabels[timeSlot] || '未選択'}\n` +
+        `メッセージ:\n${message || 'なし'}`
+      );
+
+      window.location.href = `mailto:info@harvest-table.jp?subject=${subject}&body=${body}`;
+
+      // Show confirmation
+      const btn = form.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      btn.textContent = '送信しました';
+      btn.disabled = true;
+      btn.style.backgroundColor = '#4a7335';
+
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.disabled = false;
+        btn.style.backgroundColor = '';
+      }, 3000);
+    }
+
+
+    // ---- Set min date for date input ----
+    const dateInput = document.getElementById('date');
+    if (dateInput) {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate() + 1).padStart(2, '0');
+      dateInput.setAttribute('min', `${yyyy}-${mm}-${dd}`);
+    }
+
+
+    // ---- Smooth scroll offset for fixed nav ----
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+
+        const target = document.querySelector(targetId);
+        if (target) {
+          e.preventDefault();
+          const navHeight = navbar.offsetHeight;
+          const targetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight;
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
