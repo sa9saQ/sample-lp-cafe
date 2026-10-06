@@ -789,8 +789,8 @@
                 住所
               </h3>
               <p class="font-body text-coffee-800 text-base leading-relaxed pl-8">
-                〒154-0024<br>
-                東京都世田谷区三軒茶屋2-15-3<br>
+                〒000-0000<br>
+                東京都世田谷区〇〇 0-0-0<br>
                 グリーンヒルズ三茶 1F
               </p>
               <p class="font-body text-coffee-600 text-sm pl-8 mt-2">
@@ -1097,8 +1097,8 @@
           <h4 class="font-heading text-cream text-sm font-semibold mb-6 tracking-wide">CONTACT</h4>
           <div class="space-y-3">
             <p class="font-body text-coffee-300 text-sm">
-              〒154-0024<br>
-              東京都世田谷区三軒茶屋2-15-3
+              〒000-0000<br>
+              東京都世田谷区〇〇 0-0-0
             </p>
             <a href="#" class="font-body text-coffee-300 text-sm hover:text-cream block" style="transition: color 150ms var(--ease-standard);">
               TEL: 03-0000-0000
@@ -1255,12 +1255,13 @@
         `メッセージ:\n${message || 'なし'}`
       );
 
-      window.location.href = `mailto:info@example.com?subject=${subject}&body=${body}`;
+      // Sample site: do not hand visitors' details to a mail client.
+      void subject; void body;
 
       // Show confirmation
       const btn = form.querySelector('button[type="submit"]');
       const originalText = btn.textContent;
-      btn.textContent = '送信しました';
+      btn.textContent = '見本サイトのため送信されません';
       btn.disabled = true;
       btn.style.backgroundColor = '#4a7335';
 
